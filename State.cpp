@@ -1,8 +1,10 @@
 #include "State.h"
+#include "Exceptions.h"
 #include "Localization.h"
 #include "PublicTransportSystem.h"
 #include "Strategy.h"
 #include <cstddef>
+#include <format>
 #include <iostream>
 #include <limits>
 using std::cin;
@@ -119,12 +121,14 @@ State* LoadStation::execute() {
     while (true) {
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         getline(cin, fileName);
-
         try {
             system.loadStations(fileName);
             return options.front();
-        } catch (const std::exception& e) {
-            cout << e.what() << endl;
+        } catch (const InvalidFile& e) {
+            cout << std::vformat(
+                        Localization::local_str[Localization::FILE_CANT_LOAD],
+                        std::make_format_args(e.what()))
+                 << endl;
         }
     }
 }
