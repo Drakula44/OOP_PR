@@ -73,7 +73,7 @@ public:
     MainMenu();
     ~MainMenu() {
         for (size_t i = 0; i < options.size(); i++)
-            delete options[0];
+            delete options[i];
     }
     State* execute() override;
 };

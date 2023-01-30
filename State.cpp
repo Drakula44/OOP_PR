@@ -90,6 +90,7 @@ ChooseRouteStrategy::ChooseRouteStrategy(State* prev) {
     strategies.push_back(new LeastBusChanges());
     strategies.push_back(new LeastStations());
     strategies.push_back(new ThroughImportant());
+    system.setStrategy(strategies.front());
 }
 
 State* StartUp::execute() {
