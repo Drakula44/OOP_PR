@@ -141,8 +141,11 @@ State* LoadBuses::execute() {
         try {
             system.loadBuses(fileName);
             return options.front();
-        } catch (const std::exception& e) {
-            cout << e.what() << endl;
+        } catch (const InvalidFile& e) {
+            cout << std::vformat(
+                        Localization::local_str[Localization::FILE_CANT_LOAD],
+                        std::make_format_args(e.what()))
+                 << endl;
         }
     }
 }
