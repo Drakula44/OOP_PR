@@ -13,17 +13,16 @@ using std::string;
 #include "Abstractions.h"
 #include "Bus.h"
 #include "BusStation.h"
+#include "Exceptions.h"
 #include "FileHandler.h"
 #include "Strategy.h"
 #include "UserInterface.h"
-#include "Exceptions.h"
 
 using std::cout;
 using std::endl;
 
 class PublicTransportSystem {
 private:
-    UserInterface userInterface;
     FileHandler fileHandler;
     Strategy* currentStrategy;
     BusStations& busStations;
@@ -52,19 +51,19 @@ public:
     int getStationsNumber() const { return busStations.size(); }
 
     void busInformation(const string& busId) const {
-		if (!buses.contains(busId))
-			throw InvalidBus(busId);
+        if (!buses.contains(busId))
+            throw InvalidBus(busId);
         string filePath = std::format("linija_{}.txt", busId);
-		fileHandler.writeBus(getBus(busId), filePath);
+        fileHandler.writeBus(getBus(busId), filePath);
     }
     void stationInformation(const int& stationId) const {
         if (!busStations.contains(stationId))
             throw InvalidBusStation(std::to_string(stationId));
         string filePath = std::format("stajaliste_{}.txt", stationId);
-		fileHandler.writeBusStation(getStation(stationId), filePath);
+        fileHandler.writeBusStation(getStation(stationId), filePath);
     }
 
-    void getRoute(const int startStation, const int endStation)const;
+    void getRoute(const int startStation, const int endStation) const;
     void loadStations(const string& fileName) {
         fileHandler.parseBusStations(fileName);
         updateBusStations();

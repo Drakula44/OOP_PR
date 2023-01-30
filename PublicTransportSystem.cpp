@@ -15,8 +15,8 @@ ostream& operator<<(ostream& os, const Route& route) {
 }
 
 PublicTransportSystem::PublicTransportSystem()
-    : currentStrategy(new LeastBusChanges()),
-      busStations(BusStations::instance()), buses(Buses::instance()) {
+    : currentStrategy(nullptr), busStations(BusStations::instance()),
+      buses(Buses::instance()) {
     // busStations = fileHandler.parseBusStations();
     // buses = fileHandler.parseBuses();
     // updateBusStations();
@@ -51,12 +51,12 @@ void PublicTransportSystem::updateBusStations() {
             importantStations.insert(station.first);
 }
 
-
-void PublicTransportSystem::getRoute(const int startStation, const int endStation) const {
+void PublicTransportSystem::getRoute(const int startStation,
+                                     const int endStation) const {
     auto route_o = currentStrategy->getRoute(startStation, endStation);
     if (route_o == std::nullopt) {
-		throw InvalidRoute(std::to_string(startStation) + " " +
-			std::to_string(endStation));
+        throw InvalidRoute(std::to_string(startStation) + " " +
+                           std::to_string(endStation));
     }
     Route route = *route_o;
     string filePath =
