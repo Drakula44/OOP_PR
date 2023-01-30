@@ -12,10 +12,11 @@ if(MSVC)
   # warninglevel 4 and all warnings as errors
   add_compile_options(/W4)
 else()
-  # add_compile_options(-std=c++20 -stdlib=libc++ -fexperimental-library -g -O0 -fsanitize=address)
-  # add_link_options(-stdlib=libc++ -fexperimental-library -fsanitize=address -fno-omit-frame-pointer)
-  add_compile_options(-std=c++20 -stdlib=libc++ -fexperimental-library -g -O0 -Wall -Wextra -Wpedantic)
-  add_link_options(-stdlib=libc++ -fexperimental-library)
+  add_compile_options(-std=c++20 -stdlib=libc++ -fexperimental-library -g -O0 -fsanitize=address)
+  add_link_options(-stdlib=libc++ -fexperimental-library -fsanitize=address -fno-omit-frame-pointer)
+
+  # add_compile_options(-std=c++20 -stdlib=libc++ -fexperimental-library -g -O0 -Wall -Wextra -Wpedantic)
+  # add_link_options(-stdlib=libc++ -fexperimental-library)
 
   # add_compile_options(-std=c++20 -Wall -Wextra -Wpedantic)
 endif()
