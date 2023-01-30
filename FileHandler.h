@@ -10,17 +10,18 @@ using std::string;
 
 class FileHandler {
 private:
-    string busStationDefaultFp = "test/ulazi/stajalista.txt";
-    string busesDefaultFp = "test/ulazi/linije.txt";
-	BusFormatter* busFormatter;
-	BusStationFormatter* busStationFormatter;
-	RouteFormatter* routeFormatter;
+    string busStationDefaultFp = "ulazi/stajalista.txt";
+    string busesDefaultFp = "ulazi/linije.txt";
+    BusFormatter* busFormatter;
+    BusStationFormatter* busStationFormatter;
+    RouteFormatter* routeFormatter;
 
 public:
-	FileHandler():busFormatter(new SimpleBusFormatter),
-    busStationFormatter(new SimpleBusStationFormatter),
-    routeFormatter(new SimpleRouteFormatter){}
-    
+    FileHandler()
+        : busFormatter(new SimpleBusFormatter),
+          busStationFormatter(new SimpleBusStationFormatter),
+          routeFormatter(new SimpleRouteFormatter) {}
+
     void parseBusStations(const string& busStationsFilePath = "");
     void parseBuses(const string& busesFilePath = "");
 

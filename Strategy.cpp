@@ -175,7 +175,7 @@ std::optional<Route> LeastBusChanges::getRoute(int startStation,
 std::optional<Route> ThroughImportant::getRoute(int startStation,
                                                 int endStation) {
     static const auto& stations = BusStations::instance();
-    static const auto& buses = Buses::instance();
+    // static const auto& buses = Buses::instance();
     static const auto& importantStations =
         PublicTransportSystem::GSP().getImportantStations();
 
