@@ -15,8 +15,6 @@
 #include <utility>
 #include <variant>
 
-using std::cout;
-using std::endl;
 using std::queue;
 
 Route createRoute(int startStation, int endStation,
@@ -133,12 +131,10 @@ std::optional<Route> LeastBusChanges::getRoute(int startStation,
     while (!possibleTransfers.empty()) {
         auto [station, currBusId] = possibleTransfers.front();
         possibleTransfers.pop();
-        cout << currBusId << endl;
         const auto& currBus = buses[currBusId];
         int nextStation = station;
         while (nextStation != -1) {
             if (nextStation == endStation) {
-                cout << endl;
                 return createRoute(startStation, endStation, travelPath,
                                    currBusId);
             }
@@ -151,7 +147,6 @@ std::optional<Route> LeastBusChanges::getRoute(int startStation,
             }
             nextStation = currBus.getNext(nextStation).value_or(-1);
         }
-        cout << "__";
         int prevStation = station;
         while (prevStation != -1) {
             if (prevStation == endStation) {
@@ -167,7 +162,6 @@ std::optional<Route> LeastBusChanges::getRoute(int startStation,
             }
             prevStation = currBus.getPrevious(prevStation).value_or(-1);
         }
-        cout << endl;
     }
     return std::nullopt;
 }
