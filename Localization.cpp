@@ -25,9 +25,11 @@ unordered_map<enum Localization::local_enum, string> Localization::local_str = {
 
     {Localization::GET_BUS_INFO, "Molimo Vas, unesite oznaku linije cije informacije zelite da prikazete."},
     {Localization::BUS_INFO_GENERATED, "Generisan je fajl {} sa osnovnim informacija o liniji {}"},
+    {Localization::BUS_NOT_FOUND, "Unete linija {} ne postoji."},
 
     {Localization::GET_STATION_INFO, "Molimo Vas, unesite sifru stajalista cije informacije zelite da prikazete."},
     {Localization::BUS_STATION_GENERATED, "Generisan je fajl {} sa osnovnim informacija o stajalistu {}"},
+    {Localization::STATION_NOT_FOUND, "Uneto stajaliste {} ne postoji."},
 
     {Localization::GET_ROUTE_INFO, "Molimo Vas, unesite sifru stajalista iz kog zelite da krenete i sifru stajalista do kog zelite da dodjete."},
     {Localization::ROUTE_INFO_GENERATED, "Generisan je fajl {} sa informacijama o putanji izmedju stajalista {} i {}"},
@@ -37,4 +39,5 @@ unordered_map<enum Localization::local_enum, string> Localization::local_str = {
 
     {Localization::FILE_CANT_LOAD, "Nije moguce ucitati fajl {}"},
     {Localization::INVALID_INPUT, "Opcija nije validna. Molimo Vas, pokusajte ponovo."},
+    {Localization::ROUTE_NOT_FOUND, "Putanja izmedju stajalista {} ne postoji."},
 };

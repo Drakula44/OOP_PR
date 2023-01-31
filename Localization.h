@@ -38,6 +38,10 @@ struct Localization{
         STRATEGY_INFO_SELECTED,
         FILE_CANT_LOAD,
         INVALID_INPUT,
+        BUS_NOT_FOUND,
+        STATION_NOT_FOUND,
+        ROUTE_NOT_FOUND,
+
     };
     static unordered_map<enum local_enum, string> local_str;
 };

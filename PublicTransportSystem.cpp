@@ -53,6 +53,11 @@ void PublicTransportSystem::updateBusStations() {
 
 void PublicTransportSystem::getRoute(const int startStation,
                                      const int endStation) const {
+    if (!busStations.contains(startStation))
+        throw InvalidBusStation(std::to_string(startStation));
+    if (!busStations.contains(endStation))
+        throw InvalidBusStation(std::to_string(endStation));
+
     auto route_o = currentStrategy->getRoute(startStation, endStation);
     if (route_o == std::nullopt) {
         throw InvalidRoute(std::to_string(startStation) + " " +

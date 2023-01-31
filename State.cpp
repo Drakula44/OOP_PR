@@ -4,6 +4,7 @@
 #include "PublicTransportSystem.h"
 #include "Strategy.h"
 #include <cstddef>
+#include <exception>
 #include <format>
 #include <iostream>
 #include <limits>
@@ -160,18 +161,16 @@ State* MainMenu::execute() {
     print();
     printOptions();
     int choice;
-    while (true) {
-        cin >> choice;
-        if (choice == 0) {
-            return quitOption;
-        }
-        else if (choice - 1 < options.size() && choice - 1 >= 0) {
-            return options[choice - 1];
-        }
-        else {
-            cout << Localization::local_str[Localization::INVALID_INPUT]
-                 << endl;
-        }
+    cin >> choice;
+    if (choice == 0) {
+        return quitOption;
+    }
+    else if (choice - 1 < options.size() && choice - 1 >= 0) {
+        return options[choice - 1];
+    }
+    else {
+        cout << Localization::local_str[Localization::INVALID_INPUT] << endl;
+        return this;
     }
 }
 
@@ -181,32 +180,50 @@ State* GetBusInfo::execute() {
     cin >> busName;
     try {
         system.busInformation(busName);
-    } catch (const std::exception& e) {
-        cout << e.what() << endl;
+    } catch (const InvalidBus& e) {
+        cout << std::vformat(
+                    Localization::local_str[Localization::BUS_NOT_FOUND],
+                    std::make_format_args(e.what()))
+             << endl;
     }
     return options.front();
 }
 
 State* GetStationInfo::execute() {
     print();
-    int stationName;
+    string stationName;
     cin >> stationName;
     try {
-        system.stationInformation(stationName);
+        system.stationInformation(stoi(stationName));
     } catch (const std::exception& e) {
-        cout << e.what() << endl;
+        cout << std::vformat(
+                    Localization::local_str[Localization::STATION_NOT_FOUND],
+                    std::make_format_args(stationName))
+             << endl;
     }
     return options.front();
 }
 
 State* GetRouteInfo::execute() {
     print();
-    int start, end;
+    string start, end;
     cin >> start >> end;
     try {
-        system.getRoute(start, end);
+        system.getRoute(stoi(start), stoi(end));
+    } catch (const InvalidBusStation& e) {
+        cout << std::vformat(
+                    Localization::local_str[Localization::STATION_NOT_FOUND],
+                    std::make_format_args(e.what()))
+             << endl;
+    } catch (const InvalidRoute& e) {
+        cout << std::vformat(
+                    Localization::local_str[Localization::ROUTE_NOT_FOUND],
+                    std::make_format_args(e.what()))
+             << endl;
     } catch (const std::exception& e) {
-        cout << e.what() << endl;
+        cout << std::vformat("Format stanica nije validan: {0}",
+                             std::make_format_args(e.what()))
+             << endl;
     }
     return options.front();
 }
